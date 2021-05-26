@@ -12,6 +12,6 @@
 		<a class="nav-link" href="">로그인</a>
 	</div>
 	<div class="col-lg align-self-center p-3">
-		<a class="nav-link" href="">회원가입</a>
+		<a class="nav-link" href="register.do">회원가입</a>
 	</div>
 </div>

@@ -31,4 +31,19 @@ public class MemberAction {
 		System.out.println("contorller 성공");
 		return "layout/main";
 	}
+	
+	@RequestMapping("register.do")
+	public String login() {
+		return "member/register";
+	}
+	
+	// ID중복검사 ajax함수로 처리부분
+	@RequestMapping("member_idcheck.do")
+	public String member_idcheck(@RequestParam("mem_id") String id, Model model) throws Exception {
+
+		int result = memberService.checkMemberId(id);
+		model.addAttribute("result", result);
+
+		return "member/idcheckResult";
+	}
 }

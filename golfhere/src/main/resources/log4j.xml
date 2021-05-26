@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.myhome.myapp">
+	<logger name="kr.co.naver">
 		<level value="info" />
 	</logger>
 	

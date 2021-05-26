@@ -5,14 +5,14 @@
 		<div class="col">
 			<table class="table table-bordered">
 				<tbody class=" align-middle">
-					<tr>
-						<th scope="row" class="table-dark text-light">아이디</th>
-						<td colspan="3">
+					<tr class="row">
+						<th scope="col" class="col-sm-3 table-dark text-light">아이디</th>
+						<td colspan="3" class="col-sm-5">
 							<div class="form-group row align-items-center">
-								<div class="col-4 w-25">
+								<div class="w-25">
 									<input class="form-control" type="text">
 								</div>
-								<div class="col">
+								<div class="">
 									<span class="d-inline"><a href="#">아이디 중복 체크</a></span>
 								</div>
 							</div>
@@ -20,7 +20,7 @@
 					</tr>
 
 					<tr>
-						<th scope="row" class="table-dark text-light">비밀번호</th>
+						<th scope="col" class="table-dark text-light">비밀번호</th>
 						<td>
 							<div class="row">
 								<div class="col">
