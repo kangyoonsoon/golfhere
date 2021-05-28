@@ -11,29 +11,10 @@
 <title>main</title>
 </head>
 <body>
-<nav class="navbar h-30">
-  <div class="container-fluid">
-  </div>
-</nav>
-    <div class="header-wrapper">
-        <header>
-            <div class="h-20 w-100"></div>
-            <div class="container-fluid">
-            	<!-- 전체 레이아웃 1:10:1 -->
-            	<div class="row layout">
-            		<div class="col"></div>
-            		<div class="col-8">
-						<%@ include file ="../layout/header.jsp" %>
-						<br><br>
-						
-						메인페이지
+<header>
+	<%@ include file="../layout/nav.jsp"%>
+</header>	
 
-					</div>
-            		<div class="col"></div>
-            	</div>
-            </div>
-        </header>
-    </div>
 
 
 </body>

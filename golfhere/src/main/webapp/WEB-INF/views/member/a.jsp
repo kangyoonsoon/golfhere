@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file ="../layout/header.jsp" %>
+<%@ include file ="../layout/nav.jsp" %>
 <%-- <%@ include file ="<%=request.getContextPath() %>/jsp/layout/header.jsp" %> --%>
 
 </body>

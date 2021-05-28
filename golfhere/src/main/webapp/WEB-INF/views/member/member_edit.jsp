@@ -26,7 +26,7 @@ function openDaumPostcode() {
 }
 
 </script>
-<title>registration</title>
+<title>회원 수정 폼</title>
 </head>
 <body>
 <header>
@@ -37,12 +37,12 @@ function openDaumPostcode() {
 	<div class="row layout">
 		<div class="col"></div>
 		<div class="col-8">
-			<!-- register -->
-			<h2 class="text-center my-5">회원 정보 입력</h2>
+			<!-- 회원 수정 폼 -->
+			<h2 class="text-center my-5">회원 정보 수정</h2>
 			<form name="f"
 				  method="post" 
-				  action="register_process.do" 
-				  onsubmit="return check()" 
+				  action="member_edit_process.do" 
+				  onsubmit="return edit_check()" 
 
 				  >
 				<div class="d-flex justify-content-center">
@@ -51,10 +51,7 @@ function openDaumPostcode() {
 							<th scope="row"
 								class="col-md-2 text-left align-middle align-text-middle">회원아이디</th>
 							<td colspan="2" class="col-md-5">
-								<input
-								name="id" id="join_id"
-								class="form-control" type="text">
-								<div id="idcheck"></div></td>
+								${id}</td>
 							<td class="col-md-3 align-middle"><input type="button"
 								value="아이디 중복체크" class="input_button btn btn-outline-secondary" 
 								onclick="id_check()"/></td>
@@ -82,28 +79,38 @@ function openDaumPostcode() {
 							<th
 								class="col-md-2 text-left align-middle">이름</th>
 							<td colspan="2" class="col-md-5"><input
-								class="form-control" type="text" id="join_name" name="name"></td>
+								class="form-control" type="text" id="join_name" name="name" value="${member.name}"></td>
 							<td class="col-md-5"></td>
 						</tr>
 						<tr class="d-flex">
 							<th
 								class="col-md-2 text-left align-middle">이메일</th>
 							<td class="col-md-2">
-								<input type="text" id="join_mailid" class="form-control" name="email" 
+								<input type="text" id="join_mailid" class="form-control" name="email" value="${member.email}" 
 								></td>
 							<td class="col-md-1">@</td>
 							<td class="col-md-2"><input class="form-control" 
-								type="text" name="domain" id="join_maildomain" readonly="readonly"></td>
+								type="text" name="domain" id="join_maildomain"  value="${member.domain}"></td>
 							<td class="col-md-2">
 							<div class="align-middle mt-2">										
 							<select class="form-select form-select-m px-4 mb-1 align-middle"
 								    name="mail_list" onchange="domain_list()">
-							      <option value="">이메일선택</option>
-							      <option value="daum.net">daum.net</option>
-							      <option value="nate.com">nate.com</option>
-							      <option value="naver.com">naver.com</option>
-							      <option value="hotmail.com">hotmail.com</option>
-							      <option value="gmail.com">gmail.com</option>
+							<option value="">=이메일선택=</option>
+							<option value="daum.net" 
+      						<c:if test="${member.domain == 'daum.net'}">${'selected'}
+            				</c:if>>daum.net</option>
+						      <option value="nate.com" 
+						      		<c:if test="${member.domain == 'nate.com'}">${'selected'}
+						            </c:if>>nate.com</option>
+						      <option value="naver.com" 
+						      		<c:if test="${member.domain == 'naver.com'}">${'selected'}
+						            </c:if>>naver.com</option>
+						      <option value="hotmail.com" 
+						            <c:if test="${member.domain == 'hotmail.com'}">${'selected'}
+						            </c:if>>hotmail.com</option>
+						      <option value="gmail.com" 
+						            <c:if test="${member.domain == 'gmail.com'}">${'selected'}
+						            </c:if>>gmail.com</option>
 							      <option value="0">직접입력</option>
 							</select>
 							</div>
@@ -117,18 +124,18 @@ function openDaumPostcode() {
 								<div class="form-check form-check-inline p-1">
   										<select name="phone1" class="form-select form-select-lg px-5">
    										<c:forEach var="p" items="${phone}" begin="0" end="5">
-    										<option value="${p}">${p}</option>
+    										<option value="${p}" <c:if test="${phone1 == p}">${'selected'}</c:if>>${p}</option>
   										</c:forEach>
   										</select>
   										<div class="align-center mx-3">
   										 -
   										</div>
-  										<input class="form-control" name="phone2" id="join_phone2"
+  										<input class="form-control" name="phone2" id="join_phone2" value="${member.phone2}"
 								type="text">
 								<div class="align-center mx-3">
   										 -
   										</div>
-								<input class="form-control" name="phone3" id="join_phone3"
+								<input class="form-control" name="phone3" id="join_phone3" value="${member.phone3}"
 								type="text">
 								</div>
 									
@@ -139,7 +146,7 @@ function openDaumPostcode() {
 								class="col-md-2 text-left align-middle">우편번호</th>
 							<td colspan="2" class="col-md-4">
 								<input name="zipcode" id="join_zip1"
-								class="form-control" type="text"></td>
+								class="form-control" type="text"  value="${member.zipcode}"></td>
 							<td class="col-md-3 align-middle"><input type="button"
 								value="우편번호검색" class="input_button btn btn-outline-secondary"
 								onclick="openDaumPostcode()"  /></td>
@@ -150,7 +157,7 @@ function openDaumPostcode() {
 								class="col-md-2 text-left align-middle">주소</th>
 							<td colspan="2" class="col-md-10">
 								<input name="address" id="join_addr1" 
-								class="form-control" type="text"></td>
+								class="form-control" type="text" value="${member.address}"></td>
 						</tr>
 						<tr class="d-flex">
 							<th scope="row"
@@ -158,11 +165,15 @@ function openDaumPostcode() {
 							<td colspan="5" class="col-md-10">
 								<div class="form-check form-check-inline text-left">
 									<input class="form-check-input" type="radio" name="sex" id="male"
-										value="male"> <label class="form-check-label">남자</label>
+										value="male"
+										<c:if test="${member.sex == 'male'}">${'checked'}</c:if>
+										> <label class="form-check-label">남자</label>
 								</div>
 								<div class="form-check form-check-inline text-left">
 									<input class="form-check-input" type="radio" name="sex" id="female"
-										value="female"> <label class="form-check-label">여자</label>
+										value="female"
+										<c:if test="${member.sex == 'female'}">${'checked'}</c:if>
+										> <label class="form-check-label">여자</label>
 								</div>
 							</td>
 						</tr>
@@ -172,17 +183,23 @@ function openDaumPostcode() {
 							<td colspan="2" class="col-md-10">
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="visit"
-										value="permonth" id="permonth"> <label class="form-check-label"
+										value="permonth" id="permonth"
+										<c:if test="${member.visit == 'permonth'}">${'checked'}</c:if>
+										> <label class="form-check-label"
 										for="inlineRadio1">한달 한번 이상</label>
 								</div>
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="visit"
-										value="perseason" id="perseason"> <label class="form-check-label"
+										value="perseason" id="perseason"
+										<c:if test="${member.visit == 'perseason'}">${'checked'}</c:if>
+										> <label class="form-check-label"
 										for="inlineRadio2">3개월에 한번 이상</label>
 								</div>
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="visit"
-										value="peryear" id="peryear"> <label class="form-check-label"
+										value="peryear" id="peryear"
+										<c:if test="${member.visit == 'peryear'}">${'checked'}</c:if>
+										> <label class="form-check-label"
 										for="inlineRadio2">1년에 한번 이하</label>
 								</div>
 							</td>
@@ -192,19 +209,27 @@ function openDaumPostcode() {
 								class="col-md-2   text-left align-middle">아이콘</th>
 							<td class="col-md-10">
 								<div class="form-check form-check-inline border border-primary p-1">
-											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="man.png">
+											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="man.png"
+											<c:if test="${member.icon == 'man.png'}">${'checked'}</c:if>
+											>
 											<img class="col" src="<%=request.getContextPath() %>/images/man.png"  />										
 								</div>
 								<div class="form-check form-check-inline border border-info p-1">
-											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="woman.png">
+											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="woman.png"
+											<c:if test="${member.icon == 'woman.png'}">${'checked'}</c:if>
+											>
 											<img class="col" src="<%=request.getContextPath() %>/images/woman.png" />										
 								</div>
 								<div class="form-check form-check-inline border border-success p-1">
-											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="cart.png">
+											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="cart.png"
+											<c:if test="${member.icon == 'cart.png'}">${'checked'}</c:if>
+											>
 											<img class="col" src="<%=request.getContextPath() %>/images/cart.png"  />										
 								</div>
 								<div class="form-check form-check-inline border border-warning p-1">
-											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="green.png">
+											<input class="form-check-input" type="radio" name="icon" id="inlineCheckbox1" value="green.png"
+											<c:if test="${member.icon == 'green.png'}">${'checked'}</c:if>
+											>
 											<img class="col" src="<%=request.getContextPath() %>/images/green.png"  />										
 								</div>
 							</td>
@@ -217,8 +242,8 @@ function openDaumPostcode() {
 					<div class="row">
 						<div class="col-5"></div>
 						<div class="col-4 gap-3">
-							<input type="submit" value="회원가입" class="btn btn-primary btn-lg" />
-							<input type="reset" value="가입취소" class="btn btn-outline-danger btn-lg" />
+							<input type="submit" value="수정확정" class="btn btn-primary btn-lg" />
+							<input type="reset" value="수정취소" class="btn btn-outline-danger btn-lg" onclick="$('#join_pwd1').focus();"/>
 						</div>
 						<div class="col-3"></div>
 					</div>

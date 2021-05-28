@@ -39,5 +39,14 @@ insert into member (num , id, pwd, name, email,
 					'서울 중구 동호로 222', '남', '1', 'a.jpg', '1',
 					sysdate
 					);
+insert into member (num , id, pwd, name, email,
+					domain, phone1, phone2, phone3, zipcode, 
+					address, sex, visit, icon, state, 
+					regdate)
+			values (member_num_seq.nextval, 'sl55', '111111', '김광현', 'sl55', 
+					'yaho.com', '010', '3333', '3333', '3333',
+					'인천 중구 아무동 111', '남', '1', 'a.jpg', '1',
+					sysdate
+					);
 
 select * from member;

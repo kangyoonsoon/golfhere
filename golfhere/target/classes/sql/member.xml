@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberns">
+
+    <!-- 로그인 인증 -->
+    <select id="login_check" parameterType="String" resultType="member">
+     	select * from member where id=#{id} and state=1
+    </select>
+    
+    <!-- 중복아이디 체크 -->
+    <select id="id_check" parameterType="String" resultType="member">
+    	select * from member where id=#{id} and state=1
+    </select>
+    
+    
+    <!-- 회원저장 -->
+    <insert id="member_register" parameterType="member">
+     insert into member (num, 
+     					 id, 
+     					 pwd, 
+     					 name, 
+     					 email,
+						 domain, 
+						 phone1, 
+						 phone2, 
+						 phone3, 
+						 zipcode, 
+						 address, 
+						 sex, 
+						 visit, 
+						 icon, 
+						 state, 
+						 regdate)
+			     values (member_num_seq.nextval, 
+			     		#{id}, 
+			     		 #{pwd}, 
+			     		 #{name}, 
+			     		 #{email}, 
+			     		 #{domain}, 
+			     		 #{phone1}, 
+			     		 #{phone2}, 
+			     		 #{phone3}, 
+			     		 #{zipcode}, 
+			     		 #{address}, 
+			     		 #{sex}, 
+			     		 #{visit}, 
+			     		 #{icon}, 
+			     			1, 
+			     		 sysdate)
+    </insert>
+    
+    <!-- 저장 테스트 -->
+    <insert id="insert_test" parameterType="member">
+ insert into member (num, 
+     					 id, 
+     					 pwd, 
+     					 name, 
+     					 email,
+						 domain, 
+						 phone1, 
+						 phone2, 
+						 phone3, 
+						 zipcode, 
+						 address, 
+						 sex, 
+						 visit)
+			     values (member_num_seq.nextval, 
+			     		 #{id}, 
+			     		 #{pwd}, 
+			     		 #{name}, 
+			     		 #{email}, 
+			     		 #{domain}, 
+			     		 #{phone1}, 
+			     		 #{phone2}, 
+			     		 #{phone3}, 
+			     		 #{zipcode}, 
+			     		 #{address}, 
+			     		 #{sex}, 
+			     		 #{visit})
+    </insert>
+</mapper>    

@@ -25,6 +25,20 @@
 	
 	<context:component-scan base-package="mygolf" />
 	
+	<!-- 인터셉터 설정 -->	
+	<beans:bean id="sessionChk" class="mygolf.controller.SessionCheckInter"/>	
+	 <interceptors>
+		<interceptor>
+			<mapping path="/member_edit.do"/>
+			<mapping path="/member_edit_process.do"/>			
+			<mapping path="/unsubscribe.do"/>
+			<mapping path="/unsubscribe_process.do"/>
+			<mapping path="/logout.do"/>
+			<beans:ref bean="sessionChk"/>
+		</interceptor>
+	</interceptors>	 
+	
 
+	
 	
 </beans:beans>

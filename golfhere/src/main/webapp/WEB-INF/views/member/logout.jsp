@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
+  
 <script>
-location.href="go_main.do";
+  alert("로그아웃 되었습니다!");
+  location="login.do";
 </script>

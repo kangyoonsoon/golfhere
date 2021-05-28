@@ -1,4 +1,11 @@
-﻿
+﻿$(document).ready(
+	function(){		
+	console.log('inside jquery');	
+	if($('#join_id').val()==''){
+		$('#join_id').focus();
+	} 
+});
+
  function check(){
 	 if($.trim($("#join_id").val())==""){
 		 alert("회원아이디를 입력하세요!");
@@ -79,7 +86,7 @@ function post_check(){
 /* 아이디 중복 체크*/
 function id_check(){
 	$("#idcheck").hide();//idcheck span 아이디 영역을 숨긴다.
-	var memid=$("#join_id").val();
+	var id=$("#join_id").val();
 	//1.입력글자 길이 체크
 	if($.trim($("#join_id").val()).length < 4){
 		var newtext='<font color="red">아이디는 4자 이상이어야 합니다.</font>';
@@ -98,7 +105,7 @@ function id_check(){
 		return false;
 	};
 	//입력아이디 유효성 검사
-	if(!(validate_userid(memid))){
+	if(!(validate_userid(id))){
 		var newtext='<font color="red">아이디는 영문소문자,숫자,_ 조합만 가능합니다.</font>';
 		$("#idcheck").text('');//문자 초기화
 		$("#idcheck").show();//span 아이디 영역을 보이게 한다.
@@ -111,10 +118,10 @@ function id_check(){
 	//아이디 중복확인
     $.ajax({
         type:"POST",
-        url:"member_idcheck.nhn",
-        data: {"memid":memid},        
+        url:"member_idcheck.do",
+        data: {"id":id},        
         success: function (data) { 
-        	alert("return success="+data);
+        	//alert("return success="+data);
       	  if(data==1){	//중복 ID
       		var newtext='<font color="red">중복 아이디입니다.</font>';
       			$("#idcheck").text('');
@@ -139,11 +146,11 @@ function id_check(){
 };
 /*아이디 중복 체크 끝*/
 
-function validate_userid(memid)
+function validate_userid(id)
 {
   var pattern= new RegExp(/^[a-z0-9_]+$/);
   //영문 소문자,숫자 ,_가능,정규표현식
-  return pattern.test(memid);
+  return pattern.test(id);
 };
  
 function domain_list() {
