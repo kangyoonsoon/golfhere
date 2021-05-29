@@ -3,5 +3,5 @@
 
 
 <script>
-location.href="go_main.do";
+location.href="login.do";
 </script>

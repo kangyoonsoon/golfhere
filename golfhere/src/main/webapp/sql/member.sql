@@ -18,7 +18,7 @@ CREATE TABLE member (
 	sex VARCHAR2(30) NOT NULL, /* 성별 */
 	visit VARCHAR2(100) NOT NULL, /* 코스방문 */
 	icon VARCHAR2(100), /* 아이콘 */
-	state NUMBER(10), /* 가입상태 */
+	state NUMBER(10), /* 가입상태 - 가입회원 1, 탈퇴회원 2 */
 	delcont VARCHAR2(500), /* 탈퇴사유 */
 	deldate DATE, /* 탈퇴날짜 */
 	regdate DATE /* 가입날짜 */

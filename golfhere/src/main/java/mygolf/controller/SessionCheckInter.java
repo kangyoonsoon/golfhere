@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class SessionCheckInter extends HandlerInterceptorAdapter {
 	
 	public boolean preHandle(HttpServletRequest request, 
-			HttpServletResponse response, Object handler) throws Exception {
+							 HttpServletResponse response, Object handler) throws Exception {
 		
 		HttpSession session = request.getSession();
 		System.out.println("preHandle : " + session.getId());
