@@ -21,7 +21,7 @@
 </header>	
 <section>
     <div class="d-flex justify-content-center">
-        <div class="card" style="width: 30rem;">
+        <div class="card my-5" style="width: 30rem;">
             <div class="card-body">
                 <form  method="post" action="login_process.do" onsubmit="">
                     <h5 class="form-signin-heading text-center">로그인 정보를 입력하세요</h5>
@@ -52,12 +52,12 @@
                     	</div>
                     	<div class="col-4">
                         <input type="button" value="회원가입" class="d-inline btn btn-outline-info btn-block"
-                        onclick="" /> &nbsp; &nbsp; 
+                        onclick="location='register.do'" /> &nbsp; &nbsp; 
                     	
                     	</div>
                     	<div class="col-4">
                         <input type="button" value="비번찾기" class="d-inline btn btn-outline-info btn-block"
-                        onclick="" /> &nbsp; &nbsp; 
+                        onclick="location=''" /> &nbsp; &nbsp; 
                     	
                     	</div>
                     </div>

@@ -42,15 +42,14 @@ function openDaumPostcode() {
 			<form name="f"
 				  method="post" 
 				  action="member_edit_process.do" 
-				  onsubmit="return edit_check()" 
-
-				  >
+				  onsubmit="return edit_check()" >
 				<div class="d-flex justify-content-center">
 					<table class="w-75 table">
 						<tr class="d-flex">
 							<th scope="row"
 								class="col-md-2 text-left align-middle align-text-middle">회원아이디</th>
 							<td colspan="2" class="col-md-5">
+							<input type="hidden" name="id" value="${id}"/>
 								${id}</td>
 							<td class="col-md-3 align-middle"><input type="button"
 								value="아이디 중복체크" class="input_button btn btn-outline-secondary" 

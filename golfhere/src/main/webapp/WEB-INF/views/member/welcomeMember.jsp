@@ -33,7 +33,7 @@
 		            <div class="card-body">
 		               <h2 class="text-center">반갑습니다.</h2>
 		               <div class="text-center">
-		               <img alt="icon" src="<%=request.getContextPath() %>/images/${icon}">	
+		               <img alt="icon" src="<%=request.getContextPath() %>/images/${icon}" class="p-1" style="border: 1px solid green; border-radius: 50%">	
 		               <span class="text-large mx-2">${name}&nbsp;&nbsp;님</span>
 		               </div>
 		            </div>

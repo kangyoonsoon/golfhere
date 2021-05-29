@@ -106,16 +106,16 @@ public class MemberAction {
 				
 				model.addAttribute("name", name);
 				model.addAttribute("icon", icon);
+				
 				return "member/welcomeMember";
-			}else { // 비번이 다를때
+				
+			} else { // 비번이 다를때
 				result = 2;
 				model.addAttribute("result", result);
 				
 				return "member/loginResult";		
-				
 			}
 		}
-		
 	}
 	
 	/* 로그아웃 */
@@ -137,6 +137,66 @@ public class MemberAction {
 		m.addAttribute("member", member);
 		
 		return "member/member_edit";
+	}
+	
+	/* 회원 정보 수정 process */
+	@RequestMapping("/member_edit_process.do")
+	public String member_edit_process(MemberBean member, 
+									  HttpServletRequest request,
+									  HttpSession session,
+									  Model model) throws Exception{
+		
+		// 세션
+		String id = (String) session.getAttribute("id");
+		member.setId(id);
+		
+		memberService.updateMember(member); 
+		
+		model.addAttribute("name", member.getName());
+		model.addAttribute("icon", member.getIcon());
+		
+		return "member/welcomeMember";
+	}
+	
+	/* 회원 탈퇴 */
+	@RequestMapping("/unsubscribe.do")
+	public String unsubscribe(HttpSession session, Model model) throws Exception {
+		
+		String id = (String) session.getAttribute("id");
+		
+		MemberBean member = memberService.userCheck(id);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("name", member.getName());
+		
+		return "member/unsubscribe";
+	}
+	
+	/* 회원정보 삭제 */
+	@RequestMapping("/unsubscribe_process.do")
+	public String unsubscribe_process(@RequestParam("passwd") String pwd,
+									  @RequestParam("delcont") String delcont,
+									  HttpSession session) throws Exception {
+		
+		String id = (String) session.getAttribute("id");
+		MemberBean member = memberService.userCheck(id);  // this. 붙여야 하나???
+		
+		if (!member.getPwd().equals(pwd)) {  // 비번이 다를 경우
+			return "member/deleteResult";
+		} else {  // 비번이 같을 경우
+			
+			// 새로운 MemberBean 객체 만들어서 id와 탈퇴사유만 항목만 주입 - ?? 그냥 member 객체로 해도 괜찮을 것 같은데?
+			// DB에서 id값으로 update 
+			MemberBean deleteMem = new MemberBean();
+			deleteMem.setId(id);
+			deleteMem.setDelcont(delcont);
+			System.out.println("/unsubscribe_process.do email: " + deleteMem.getEmail());
+			memberService.deleteMember(deleteMem);  // member 삭제
+			
+			session.invalidate(); // 세션 완료
+			
+			return "redirect:login.do";
+		}
 	}
 	
 	

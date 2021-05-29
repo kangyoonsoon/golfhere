@@ -24,8 +24,13 @@ public class MemberService {
 		return (MemberBean) memberDao.userCheck(id);
 	}
 	
+	public void updateMember(MemberBean member) throws Exception {
+		memberDao.updateMember(member);
+	}
 	
-	
+	public void deleteMember(MemberBean member) throws Exception {
+		memberDao.deleteMember(member);
+	}
 	
 	//test
 	public void insertTest(MemberBean member) throws Exception{

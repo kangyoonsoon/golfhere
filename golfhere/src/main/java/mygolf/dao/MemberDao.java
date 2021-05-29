@@ -33,6 +33,17 @@ public class MemberDao {
 		return sqlSession.selectOne("login_check", id);
 	}
 	
+	
+	/* 회원 정보 수정 */
+	public void updateMember(MemberBean member) throws Exception {
+		sqlSession.update("member_update", member);
+	}
+	
+	/* 회원 삭제 */
+	public void deleteMember(MemberBean member) throws Exception {
+		sqlSession.update("member_delete", member);
+	}
+	
 	// insert 테스트
 	public void insertTest(MemberBean member) throws Exception {
 		sqlSession.insert("insert_test", member);
