@@ -7,26 +7,12 @@
 <meta charset="utf-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- bootstrap version 4.6 -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board_write.css">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-<script src="<%=request.getContextPath()%>/js/member2.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-//우편번호, 주소 Daum API
-function openDaumPostcode() {
-	new daum.Postcode({
-		oncomplete : function(data) {				
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-			// 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
-			document.getElementById('join_zip1').value = data.zonecode;
-			document.getElementById('join_addr1').value = data.address;				
-		}
-	}).open();
-}
-
-</script>
-<title>registration</title>
+<script src="<%=request.getContextPath()%>/js/board.js"></script>
+<script src="<%=request.getContextPath()%>/js/boardWrite.js"></script>
+<title>board registration</title>
 </head>
 <body>
 <header>
@@ -38,25 +24,54 @@ function openDaumPostcode() {
 		<div class="col"></div>
 		<div class="col-8">
 			<!-- register -->
-			<h2 class="text-center my-5">후기 게시판</h2>
+			<h2 class="text-center my-5">골프장 후기 게시판</h2>
 			<form name="f"
 				  method="post" 
-				  action="write_process.do" 
-				  onsubmit="return check()" 
+				  action="board_write_process.do" 
+				  onsubmit="return check()"
+				  enctype="multipart/form-data"
 				  >
+				<input type="hidden" name="num" value="${num}">  
 				<div class="d-flex justify-content-center">
 					<table class="w-75 table">
 						<tr class="d-flex">
 							<th
 								class="col-sm-2 text-left align-middle">제목</th>
 							<td class="col-sm-10"><input
-								class="form-control" type="text" id="join_name" name="name"></td>
+								class="form-control" type="text" id="board_title" name="board_title"></td>
+						</tr>
+						<tr class="d-flex">
+							<th
+								class="col-sm-2 text-left align-middle">골프장</th>
+							<td class="col-md-4">
+								<input type="text" id="" class="form-control" name="board_coursename" readonly >
+							</td>
+							<td class="col-sm-6">
+								<select name="course_num" onChange="course_list()">
+									<option value="">=골프장 선택=</option>
+									<c:forEach var="course" items="${courseList}" begin="0" end="50">
+										<option value="${course.course_num}">${course.course_name}</option>
+									</c:forEach>
+									<option value="1">직접입력</option>
+								</select>
+							</td>
 						</tr>
 						<tr class="d-flex">
 							<th scope="row"
 								class="col-sm-2 text-left align-middle align-text-middle">내용</th>
 							<td class="col-sm-10">
-								<textarea class="form-control" id="del_cont" name="delcont" rows="10"></textarea>
+								<textarea class="form-control" id="board_content" name="board_content" rows="10"></textarea>
+							</td>	
+						</tr>
+						<tr class="d-flex">
+							<th scope="row"
+								class="col-sm-2 text-left align-middle align-text-middle">골프장 평점</th>
+							<td class="col-sm-10">
+                                <div class="slidecontainer w-50">
+                                    <p>바를 움직여 점수를 주세요.</p>
+                                    <input type="range" min="0" max="100" value="50" class="slider" id="myRange" name="board_evaluation">
+                                    <p>점수: <span id="demo" class="btn btn-outline-danger px-3 mx-2"></span></p>
+                                </div>
 							</td>	
 						</tr>
 						<tr class="d-flex">
@@ -82,7 +97,33 @@ function openDaumPostcode() {
 		</div>
 		<div class="col"></div>
 	</div>
-
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+        
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+        
+        $(document).submit(function(){
+        	if ($.trim($("#board_title").val()) == "") {
+        		alert("글제목을 입력하세요!");
+        		$("#board_title").val("").focus();
+        		return false;
+        	}
+        	if ($.trim($("#board_content").val()) == "") {
+        		alert("글내용을 입력하세요!");
+        		$("#board_content").val("").focus();
+        		return false;
+        	}
+        	if ($.trim($("#board_coursename").val()) == "") {
+        		alert("골프장을 선택해 주세요");
+        		
+        		return false;
+        	}
+        });
+        </script>
 </section>						
 </body>
 </html>

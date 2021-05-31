@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias alias="member" type="mygolf.model.MemberBean" />		
 		<typeAlias alias="board" type="mygolf.model.BoardBean" />		
+		<typeAlias alias="course" type="mygolf.model.CourseBean" />		
 	</typeAliases>
 
 </configuration>
