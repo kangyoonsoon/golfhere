@@ -28,4 +28,17 @@ public class BoardService {
 	public List<BoardBean> getBoardList(int page) throws Exception{
 		return boardDao.getBoardList(page);
 	}
+	
+	// 조회수 1 증가
+	public void increaseReadcount(int board_num) throws Exception {
+		boardDao.increaseReadcount(board_num);
+	}
+	
+	// 상세 정보 - 게시판 내용
+	public BoardBean getBoardContent(int board_num) throws Exception {
+		
+		BoardBean board = boardDao.getBoardContent(board_num);
+		
+		return board;
+	}
 }

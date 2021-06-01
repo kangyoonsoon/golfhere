@@ -36,7 +36,8 @@
     				  zipcode = #{zipcode},
     				  address = #{address},
     				  sex = #{sex},
-    				  visit = #{visit}
+    				  visit = #{visit},
+    				  icon = #{icon}
     		where id=#{id}
     </update>
     

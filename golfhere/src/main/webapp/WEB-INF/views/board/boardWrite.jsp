@@ -44,7 +44,7 @@
 							<th
 								class="col-sm-2 text-left align-middle">골프장</th>
 							<td class="col-md-4">
-								<input type="text" id="" class="form-control" name="board_coursename" readonly >
+								<input type="text" id="board_coursename" class="form-control" name="board_coursename" readonly >
 							</td>
 							<td class="col-sm-6">
 								<select name="course_num" onChange="course_list()">

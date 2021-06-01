@@ -16,6 +16,9 @@ public class BoardBean {
 	private int num;
 	private int course_num;
 	
+	private String id;
+	private String icon;
+	
 	//private String id;
 	
 
@@ -109,4 +112,16 @@ public class BoardBean {
 	//public void setId(String id) {
 	//	this.id = id;
 	//}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 }

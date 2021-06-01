@@ -136,7 +136,7 @@ public class MemberAction {
 		
 		m.addAttribute("member", member);
 		
-		return "member/member_edit";
+		return "member/memberEdit";
 	}
 	
 	/* 회원 정보 수정 process */

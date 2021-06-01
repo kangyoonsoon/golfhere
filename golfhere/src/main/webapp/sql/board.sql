@@ -57,8 +57,21 @@ insert into board (board_num, board_title, board_content, board_readcount, board
 					'aaa.png', 0, 1, 1);
 
 
+select b.*, m.id, m.icon from MEMBER m, BOARD b where m.num = b.num;
+select b.*, m.id, m.icon from BOARD b join MEMBER m on m.num = b.num;
 
 
+select * from 
+		 (select rownum rnum, boardAll.* from  
+	  	 (select b.*, m.id, m.icon from board b join member m on m.num= b.num order by b.board_ref desc, b.board_seq asc) boardAll);
+
+--select * from 
+--		 (select rownum rnum, boardAll.* from  
+--	  	 (select * from board order by board_ref desc, board_seq asc) boardAll) 
+--	   		 where rnum >= ((#{page}-1) * 10 + 1)  and rnum <= (#{page} * 10)	 
+	  	 
+	  	 
+	  	 
 select * from tab;
 select * from seq;
 select * from board;

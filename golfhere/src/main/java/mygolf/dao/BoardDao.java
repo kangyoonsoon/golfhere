@@ -32,4 +32,16 @@ public class BoardDao {
 		
 		return list;
 	}
+	
+	// 조회수 1증가
+	public void increaseReadcount(int board_num) throws Exception {
+		sqlSession.update("increase_readcount", board_num);
+	}
+	
+	// 게시판 상세 정보 - 글 내용
+	public BoardBean getBoardContent(int board_num) {
+		BoardBean board = (BoardBean) sqlSession.selectOne("board_content", board_num);
+		return board;
+	}
 }
+ 

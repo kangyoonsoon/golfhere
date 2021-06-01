@@ -234,7 +234,7 @@ function openDaumPostcode() {
 							</td>
 						</tr>
 
-						</div>
+
 					</table>
 				</div>
 				<div class="container">

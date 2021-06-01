@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,7 @@ public class BoardAction {
 		model.addAttribute("courseList", courseList); 
 		model.addAttribute("num", num);
 		
-		return "board/board_write";
+		return "board/boardWrite";
 	}
 	
 	/* 게시판 글 저장 */
@@ -179,15 +180,15 @@ public class BoardAction {
 		// 현재 페이지에 보여줄 시작 페이지수 (1, 11, 21...)
 		int startPage = ((int)((double) page / limit + 0.9) - 1) * 10 + 1;
 		int endPage = maxPage;
-		System.out.println("/board_list.do startPage: " + startPage);
-		System.out.println("/board_list.do endPage: " + endPage);		
+		System.out.println("/boardList.do startPage: " + startPage);
+		System.out.println("/boardList.do endPage: " + endPage);		
 		
 		
 		// ??
 		if (endPage > startPage + 10 -1)
 			endPage = startPage + 10 -1;
 		
-		System.out.println("/board_list.do endPage: " + endPage);		
+		System.out.println("/boardList.do endPage: " + endPage);		
 		
 		
 		model.addAttribute("page", page);
@@ -198,7 +199,49 @@ public class BoardAction {
 		model.addAttribute("boardList", boardList);
 		
 		
-		return "board/board_list";
+		return "board/boardList";
 	}
+	
+	/* 게시판 내용보기, 삭제폼, 수정폼, 답변글폼 */
+	@RequestMapping("/board_content.do")
+	public String board_content(@RequestParam("board_num") int board_num, 
+								@RequestParam("page") String page, 
+								@RequestParam("state") String state,
+								@RequestParam("id") String id,
+								@RequestParam("icon") String icon,
+								@RequestParam("course") String course,
+								HttpSession session,
+								Model model) throws Exception {
+	
+	String sessionId = (String) session.getAttribute("id");
+		
+	// 제목 클릭할 때만 조회수 증가
+	if (state.equals("cont")) {
+		boardService.increaseReadcount(board_num);
+	}
+	
+	BoardBean board = boardService.getBoardContent(board_num);
+	board.setId(id);
+	board.setIcon(icon);
+	
+	model.addAttribute("board", board);
+	model.addAttribute("page", page);
+	model.addAttribute("id", id);
+	model.addAttribute("icon", icon);
+	model.addAttribute("course", course);
+	model.addAttribute("sessionId", sessionId);
+	
+	if (state.equals("cont")) {
+		return "board/boardContent";
+	} else if (state.equals("edit")) {
+		return "board/boardEdit";
+	} else if (state.equals("delete")) {
+		return "board/boardDelete";
+	} else if (state.equals("reply")) {
+		return "board/boardReply";
+	}
+	return null;
+	}
+	
 	
 }
