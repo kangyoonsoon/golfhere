@@ -39,9 +39,15 @@ public class BoardDao {
 	}
 	
 	// 게시판 상세 정보 - 글 내용
-	public BoardBean getBoardContent(int board_num) {
+	public BoardBean getBoardContent(int board_num) throws Exception {
 		BoardBean board = (BoardBean) sqlSession.selectOne("board_content", board_num);
 		return board;
+	}
+	
+	// 게시물 수정
+	public void editContent(BoardBean board) throws Exception {
+		System.out.println("Dao 수정: " + board.getBoard_num());
+		sqlSession.update("board_update", board);
 	}
 }
  

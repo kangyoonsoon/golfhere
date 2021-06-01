@@ -95,17 +95,17 @@
 							     <c:if test="${sessionId == id}">							       
 									<div class="btn-group" role="group" aria-label="Basic example">
 									  <button type="button" class="btn btn-outline-primary"
-									  onclick="location='board_cont.do?board_num=${board.board_num}&page=${page}&state=edit'"
+									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=edit'"
 									  >수정</button>
 									  <button type="button" class="btn btn-outline-primary"
-									  onclick="location='board_cont.do?board_num=${board.board_num}&page=${page}&state=del'"
+									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=del'"
 									  >삭제</button>
 									</div>
 							     </c:if>
 
 									<div class="col-12 my-3">										
 										<input type="reset" value="해당 게시물에 답변하기" class="btn btn-outline-primary btn w-100"
-										 onclick="location='board_cont.do?board_num=${board.board_num}&page=${page}&state=reply'" />
+										 onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=reply'" />
 									</div>
 									<div class="col-12 my-3">										
 										<input type="reset" value="목록으로 돌아가기" class="btn btn-primary btn w-100"

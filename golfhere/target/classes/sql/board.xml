@@ -41,4 +41,16 @@
 		select * from board where board_num = #{board_num}
 	</select>
 	
+	<!-- 게시물 수정 -->
+	<update id="board_update" parameterType="board">
+		update board set 
+		board_title = #{board_title},
+		board_coursename = #{board_coursename},
+		course_num = #{course_num},
+		board_content = #{board_content},
+		board_evaluation = #{board_evaluation},
+		board_picture = #{board_picture}
+		where board_num = #{board_num}
+	</update>	
+	
 </mapper>    

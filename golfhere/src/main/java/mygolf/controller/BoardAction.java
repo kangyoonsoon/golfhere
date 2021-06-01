@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,26 +92,28 @@ public class BoardAction {
 		
 		String file[] = new String[2];
 		
-		StringTokenizer st = new StringTokenizer(filename, ".");
-		file[0] = st.nextToken();
-		file[1] = st.nextToken();
+		if(filename != ""){	 // 첨부파일이 전송된 경우	
 		
-		if (size > 1000000){ // 파일 용량 체크
-			result = 1;
-			model.addAttribute("result", result);
+			StringTokenizer st = new StringTokenizer(filename, ".");
+			file[0] = st.nextToken();
+			file[1] = st.nextToken();
 			
-			return "board/boardWriteResult";
-		} else if (!file[1].equals("jpg")&&
-					!file[1].equals("jpeg")&&
-					!file[1].equals("png")&&
-					!file[1].equals("gif")&&
-					!file[1].equals("svg")){ // 확장자
-			result = 2;
-			model.addAttribute("result", result);
-			
-			return "board/boardWriteResult";
+			if (size > 1000000){ // 파일 용량 체크
+				result = 1;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			} else if (!file[1].equals("jpg")&&
+						!file[1].equals("jpeg")&&
+						!file[1].equals("png")&&
+						!file[1].equals("gif")&&
+						!file[1].equals("svg")){ // 확장자
+				result = 2;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			}
 		}
-		
 		if (size > 0) { // 첨부파일이 전송된 경우
 			mf.transferTo(new File(path + "/" + filename));
 		}
@@ -210,6 +213,7 @@ public class BoardAction {
 								@RequestParam("id") String id,
 								@RequestParam("icon") String icon,
 								@RequestParam("course") String course,
+								@ModelAttribute CourseBean coursebean,
 								HttpSession session,
 								Model model) throws Exception {
 	
@@ -221,6 +225,10 @@ public class BoardAction {
 	}
 	
 	BoardBean board = boardService.getBoardContent(board_num);
+
+
+	List<CourseBean> courseList = courseService.listCourse();
+	
 	board.setId(id);
 	board.setIcon(icon);
 	
@@ -230,6 +238,7 @@ public class BoardAction {
 	model.addAttribute("icon", icon);
 	model.addAttribute("course", course);
 	model.addAttribute("sessionId", sessionId);
+	model.addAttribute("courseList", courseList);
 	
 	if (state.equals("cont")) {
 		return "board/boardContent";
@@ -244,4 +253,190 @@ public class BoardAction {
 	}
 	
 	
+	
+	/*
+	@RequestMapping(value="/board_edit_process.do", method = RequestMethod.POST)
+	public String board_edit_process(@RequestParam("course_picture") MultipartFile mf,
+									 @RequestParam("page") String page, 
+									
+									 @ModelAttribute BoardBean boardbean,
+									 @ModelAttribute CourseBean coursebean,
+									 @ModelAttribute MemberBean member,
+									 HttpSession session,
+									 HttpServletRequest request,
+									 Model model) throws Exception {
+		// 사진 업로드
+		String filename = mf.getOriginalFilename(); // 첨부 파일명
+		int size = (int) mf.getSize(); // 첨부파일의 크기: byte
+
+		String path = request.getRealPath("upload");
+
+		int result = 0;
+		
+		String file[] = new String[2];
+		
+		if(filename != ""){	 // 첨부파일이 전송된 경우	
+		
+			StringTokenizer st = new StringTokenizer(filename, ".");
+			file[0] = st.nextToken();
+			file[1] = st.nextToken();
+			
+			if (size > 1000000){ // 파일 용량 체크
+				result = 1;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			} else if (!file[1].equals("jpg")&&
+						!file[1].equals("jpeg")&&
+						!file[1].equals("png")&&
+						!file[1].equals("gif")&&
+						!file[1].equals("svg")){ // 확장자
+				result = 2;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			}
+		}
+		if (size > 0) { // 첨부파일이 전송된 경우
+			mf.transferTo(new File(path + "/" + filename));
+		}
+		
+		// 바뀐 파일명
+		boardbean.setBoard_picture(filename);
+		// 수정할 BoardBean 가져오기 -- 필요없을 것 같아.
+		// BoardBean editBoard = boardService.getBoardContent(boardbean.getBoard_num());
+		
+		// 세션 id를 통해 DB에서 member 비밀번호 가져오기
+		String sessionId = (String) session.getAttribute("id");
+		MemberBean memberbean = memberService.userCheck(sessionId);
+		String pwdFromDB = memberbean.getPwd();
+		String pwd = request.getParameter("pwd");
+		int outcome = 0;
+		// 비번이 같지 않다면,
+		if(!pwd.equals(pwdFromDB)) {
+			outcome = 1;
+			model.addAttribute("result", result);
+			// 다시 수정 폼 모드로 돌아간다.
+			return "board/updateResult";
+		} else {  // 비번 일치
+			// update
+			boardService.editContent(boardbean);
+		}
+		
+		
+		
+		 //return "redirect:/board_content.do?board_num=" + boardbean.getBoard_num() +
+		 // "&page=" + page + "&id=" + "&icon=" + ${icon} + "&course=" + ${course}
+		 // +"&state=cont";
+		 
+		
+		return "board/boardList";
+	}
+	*/
+	
+	@RequestMapping(value="/board_edit_process.do", method = RequestMethod.POST)
+	public String board_edit_process(@RequestParam("course_picture") MultipartFile mf,
+									 @RequestParam("page") String page,
+									 @RequestParam("boardNumber") int boardNumber,
+									 @RequestParam("pwd") String pwd,
+//									 @RequestParam("icon") String icon,
+									 @RequestParam("board_title") String board_title,
+									 @RequestParam("board_coursename") String board_coursename,
+									 @RequestParam("course_num") int course_num,
+									 @RequestParam("board_content") String board_content,
+									 @RequestParam("board_evaluation") int board_evaluation,
+
+									 HttpSession session,
+									 HttpServletRequest request,
+									 //BoardBean boardbean,
+									 Model model)throws Exception {
+		System.out.println("성공??");
+		// 사진 업로드
+		String filename = mf.getOriginalFilename(); // 첨부 파일명
+		int size = (int) mf.getSize(); // 첨부파일의 크기: byte
+
+		String path = request.getRealPath("upload");
+
+		int result = 0;
+		
+		String file[] = new String[2];
+		
+		if(filename != ""){	 // 첨부파일이 전송된 경우	
+		
+			StringTokenizer st = new StringTokenizer(filename, ".");
+			file[0] = st.nextToken();
+			file[1] = st.nextToken();
+			
+			if (size > 1000000){ // 파일 용량 체크
+				result = 1;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			} else if (!file[1].equals("jpg")&&
+						!file[1].equals("jpeg")&&
+						!file[1].equals("png")&&
+						!file[1].equals("gif")&&
+						!file[1].equals("svg")){ // 확장자
+				result = 2;
+				model.addAttribute("result", result);
+				
+				return "board/boardWriteResult";
+			}
+		}
+		if (size > 0) { // 첨부파일이 전송된 경우
+			mf.transferTo(new File(path + "/" + filename));
+			System.out.println("첨부파일 전송~~");
+			System.out.println("filename" + filename);
+		}
+		// 바뀐 파일명
+		//boardbean.setBoard_picture(filename);  // -- 이렇게 하면 오류난다 -- ???????
+		System.out.println(boardNumber);
+		
+    	BoardBean boardbean = boardService.getBoardContent(boardNumber);
+    	// 바뀐 파일명
+    	
+    	
+    	boardbean.setBoard_picture(filename);
+    	boardbean.setBoard_title(board_title);
+    	boardbean.setBoard_coursename(board_coursename);
+    	boardbean.setCourse_num(course_num);
+    	boardbean.setBoard_content(board_content);
+    	boardbean.setBoard_evaluation(board_evaluation);
+
+
+    	
+    	
+    	
+    	System.out.println("Board_num "+boardbean.getBoard_num());
+    	System.out.println("Board_title"+boardbean.getBoard_title());
+    	System.out.println("Board_content"+boardbean.getBoard_content());
+    	System.out.println("Course_num"+boardbean.getCourse_num());
+    	System.out.println("Board_content"+boardbean.getBoard_content());
+    	System.out.println("evaluation"+boardbean.getBoard_evaluation());
+    	System.out.println("picture"+boardbean.getBoard_picture());
+    	
+    	// 세션 id를 통해 DB에서 member 비밀번호 가져오기
+		String sessionId = (String) session.getAttribute("id");
+		MemberBean memberbean = memberService.userCheck(sessionId);
+		String pwdFromDB = memberbean.getPwd();
+		//String pwd = request.getParameter("pwd");
+		int outcome = 0;
+		// 비번이 같지 않다면,
+		if(!pwd.equals(pwdFromDB)) {
+			outcome = 1;
+			model.addAttribute("outcome", outcome);
+			// 다시 수정 폼 모드로 돌아간다.
+			return "board/updateResult";
+		} else {  // 비번 일치
+			// update
+			boardService.editContent(boardbean);
+		}
+		return "redirect:board_list.do";
+		
+		//return "redirect:/boardContent.do?board_num=" + boardbean.getBoard_num()
+		//+ "&page=" + page + "&state=cont";
+		//&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}
+		//return "redirect:/board_content.do?board_num=" +boardbean.getBoard_num()
+		//+ "&page="+ page +"&id="+ sessionId + "&icon=" + "???" +"&course=" + boardbean.getBoard_coursename() +"&state=cont";
+	}
 }

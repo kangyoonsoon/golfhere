@@ -41,4 +41,10 @@ public class BoardService {
 		
 		return board;
 	}
+	
+	// 게시물 수정
+	public void editContent(BoardBean board) throws Exception {	
+		System.out.println("service 수정: "+board.getBoard_coursename());
+		boardDao.editContent(board);
+	}
 }
