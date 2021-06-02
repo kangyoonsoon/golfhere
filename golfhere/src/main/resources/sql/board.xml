@@ -53,4 +53,57 @@
 		where board_num = #{board_num}
 	</update>	
 	
+	
+	<!-- 답변글 레벨 증가 -->
+	<update id="board_ref_edit" parameterType="board">
+		 <![CDATA[
+		update board set
+		board_seq=board_seq + 1
+		where board_ref = #{board_ref} and board_seq > #{board_seq}
+		]]>
+	</update>
+	
+
+	<!-- 답변글 저장 -->
+	<insert id="board_reply_insert" parameterType="board">
+		insert into board
+		(board_num,
+		board_title,
+		board_content,
+		board_readcount,
+		board_ref,
+		board_lev,
+		board_seq,
+		board_date,
+		board_evaluation, 
+<!-- 		board_coursename,
+		board_picture, 
+		board_del,  -->
+		num, 
+		course_num
+		)
+		values(
+		board_num_seq.nextval,
+		#{board_title},
+		#{board_content},
+		#{board_readcount},
+		#{board_ref},
+		#{board_lev},
+		#{board_seq},
+		sysdate,
+		#{board_evaluation},
+<!-- 		#{board_coursename},
+		#{board_picture},
+		#{board_del}, -->
+		#{num},
+		#{course_num}
+		)
+	</insert>
+	
+	
+	<!-- 게시물 삭제 -->
+	<delete id="board_delete" parameterType="int">
+		delete from board 
+		where board_num = #{board_num}
+	</delete>
 </mapper>    

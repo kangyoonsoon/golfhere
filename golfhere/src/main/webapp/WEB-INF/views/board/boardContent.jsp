@@ -71,7 +71,7 @@
 							<td colspan="2" class="col-sm-9">
 								<c:if test="${board.icon != null}">
 									 <img alt="icon" src="<%=request.getContextPath() %>/images/${board.icon}" class="mx-3" style="border: 1px solid green; border-radius: 50%">
-									 </c:if>
+								</c:if>
 									 <span class="text-right">${board.id}</span>
 							</td>	
 						</tr>
@@ -87,7 +87,7 @@
 								<td class="col-6 text-center">
 
 
-									<!-- 해당 아이디에 로그인해야지 수정 삭제&가능하도록 !! -->
+								<!-- 해당 아이디에 로그인해야지 수정 삭제&가능하도록 !! -->
 								 <c:if test="${sessionId != id}">
 							       &nbsp;
 							     </c:if>
@@ -97,8 +97,9 @@
 									  <button type="button" class="btn btn-outline-primary"
 									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=edit'"
 									  >수정</button>
+									  
 									  <button type="button" class="btn btn-outline-primary"
-									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=del'"
+									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=delete'"
 									  >삭제</button>
 									</div>
 							     </c:if>
@@ -121,4 +122,6 @@
 		<div class="col"></div>
 	</div>
 
-</section>	
+</section>
+</body>
+</html>	

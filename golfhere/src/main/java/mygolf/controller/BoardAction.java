@@ -200,8 +200,7 @@ public class BoardAction {
 		model.addAttribute("maxPage", maxPage);
 		model.addAttribute("listCount", listCount);
 		model.addAttribute("boardList", boardList);
-		
-		
+
 		return "board/boardList";
 	}
 	
@@ -232,6 +231,7 @@ public class BoardAction {
 	board.setId(id);
 	board.setIcon(icon);
 	
+	model.addAttribute("board_num", board_num);
 	model.addAttribute("board", board);
 	model.addAttribute("page", page);
 	model.addAttribute("id", id);
@@ -254,85 +254,6 @@ public class BoardAction {
 	
 	
 	
-	/*
-	@RequestMapping(value="/board_edit_process.do", method = RequestMethod.POST)
-	public String board_edit_process(@RequestParam("course_picture") MultipartFile mf,
-									 @RequestParam("page") String page, 
-									
-									 @ModelAttribute BoardBean boardbean,
-									 @ModelAttribute CourseBean coursebean,
-									 @ModelAttribute MemberBean member,
-									 HttpSession session,
-									 HttpServletRequest request,
-									 Model model) throws Exception {
-		// 사진 업로드
-		String filename = mf.getOriginalFilename(); // 첨부 파일명
-		int size = (int) mf.getSize(); // 첨부파일의 크기: byte
-
-		String path = request.getRealPath("upload");
-
-		int result = 0;
-		
-		String file[] = new String[2];
-		
-		if(filename != ""){	 // 첨부파일이 전송된 경우	
-		
-			StringTokenizer st = new StringTokenizer(filename, ".");
-			file[0] = st.nextToken();
-			file[1] = st.nextToken();
-			
-			if (size > 1000000){ // 파일 용량 체크
-				result = 1;
-				model.addAttribute("result", result);
-				
-				return "board/boardWriteResult";
-			} else if (!file[1].equals("jpg")&&
-						!file[1].equals("jpeg")&&
-						!file[1].equals("png")&&
-						!file[1].equals("gif")&&
-						!file[1].equals("svg")){ // 확장자
-				result = 2;
-				model.addAttribute("result", result);
-				
-				return "board/boardWriteResult";
-			}
-		}
-		if (size > 0) { // 첨부파일이 전송된 경우
-			mf.transferTo(new File(path + "/" + filename));
-		}
-		
-		// 바뀐 파일명
-		boardbean.setBoard_picture(filename);
-		// 수정할 BoardBean 가져오기 -- 필요없을 것 같아.
-		// BoardBean editBoard = boardService.getBoardContent(boardbean.getBoard_num());
-		
-		// 세션 id를 통해 DB에서 member 비밀번호 가져오기
-		String sessionId = (String) session.getAttribute("id");
-		MemberBean memberbean = memberService.userCheck(sessionId);
-		String pwdFromDB = memberbean.getPwd();
-		String pwd = request.getParameter("pwd");
-		int outcome = 0;
-		// 비번이 같지 않다면,
-		if(!pwd.equals(pwdFromDB)) {
-			outcome = 1;
-			model.addAttribute("result", result);
-			// 다시 수정 폼 모드로 돌아간다.
-			return "board/updateResult";
-		} else {  // 비번 일치
-			// update
-			boardService.editContent(boardbean);
-		}
-		
-		
-		
-		 //return "redirect:/board_content.do?board_num=" + boardbean.getBoard_num() +
-		 // "&page=" + page + "&id=" + "&icon=" + ${icon} + "&course=" + ${course}
-		 // +"&state=cont";
-		 
-		
-		return "board/boardList";
-	}
-	*/
 	
 	@RequestMapping(value="/board_edit_process.do", method = RequestMethod.POST)
 	public String board_edit_process(@RequestParam("course_picture") MultipartFile mf,
@@ -402,6 +323,7 @@ public class BoardAction {
     	boardbean.setCourse_num(course_num);
     	boardbean.setBoard_content(board_content);
     	boardbean.setBoard_evaluation(board_evaluation);
+    	boardbean.setBoard_coursename(board_coursename);
 
 
     	
@@ -438,5 +360,104 @@ public class BoardAction {
 		//&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}
 		//return "redirect:/board_content.do?board_num=" +boardbean.getBoard_num()
 		//+ "&page="+ page +"&id="+ sessionId + "&icon=" + "???" +"&course=" + boardbean.getBoard_coursename() +"&state=cont";
+
 	}
+	
+	
+	/* 답변 달기 저장 */
+	@RequestMapping(value="/board_reply_process.do", method = RequestMethod.POST)
+	public String boardReplyProcess(@RequestParam("page") String page,
+									@RequestParam("board_num") int board_num,
+									@RequestParam("pwd") String pwd,
+									//@RequestParam("board_title") String board_title,
+									HttpSession session,
+									BoardBean boardbean,
+									Model model) throws Exception {
+		System.out.println("/board_reply_process.do" + "성공");
+		
+		// 세션 id를 통해 DB에서 member 비밀번호 가져오기
+		String sessionId = (String) session.getAttribute("id");
+
+		
+		
+		System.out.println("/board_reply_process.do sessionId: " + sessionId); 
+		MemberBean memberbean = memberService.userCheck(sessionId);
+		int num = memberbean.getNum();
+
+		// member num 주입
+		boardbean.setNum(num);
+		
+		// !!!! course_num을 1로 일단 주입 나중에 고친다..
+		boardbean.setCourse_num(1);
+		
+		
+		String pwdFromDB = memberbean.getPwd();
+		System.out.println("/board_reply_process.do pwdFromDB: " + pwdFromDB); 
+		System.out.println("/board_reply_process.do board title: " + boardbean.getBoard_title()); 
+		System.out.println("/board_reply_process.do board content: " + boardbean.getBoard_content()); 
+		
+		System.out.println(boardbean.getBoard_num());
+		System.out.println(boardbean.getBoard_title());
+		System.out.println(boardbean.getBoard_content());
+		System.out.println(boardbean.getBoard_readcount());
+		System.out.println(boardbean.getBoard_ref());
+		System.out.println(boardbean.getBoard_lev());
+		System.out.println(boardbean.getBoard_seq());
+		System.out.println(boardbean.getBoard_date());
+		System.out.println(boardbean.getBoard_evaluation());
+		System.out.println(boardbean.getBoard_coursename());
+		System.out.println(boardbean.getBoard_picture());
+		System.out.println(boardbean.getBoard_del());
+		System.out.println(boardbean.getNum());
+		System.out.println(boardbean.getCourse_num());
+		
+		
+		// 비밀번호 인증
+		int outcome = 0;
+		// 비번이 같지 않다면,
+		if(!pwd.equals(pwdFromDB)) {
+			outcome = 1;
+			model.addAttribute("outcome", outcome);
+			// 다시 수정 폼 모드로 돌아간다.
+			return "board/updateResult";
+		} else {  // 비번 일치
+			// 답변달기
+			boardService.insertReply(boardbean);
+		}
+		
+		return "redirect:board_list.do";
+	}
+	
+	/* 게시판 삭제 */
+	@RequestMapping(value = "/board_del_process.do", method = RequestMethod.POST)
+	public String board_del_ok(@RequestParam("board_num") int board_num,
+							   @RequestParam("page") int page,
+							   @RequestParam("pwd") String user_pwd,
+							   @RequestParam("id") String id,
+							   HttpServletRequest session,
+							   Model model) throws Exception {
+
+		//String sessionId = (String) session.getAttribute("id");
+		BoardBean boardDB = boardService.getBoardContent(board_num);
+		
+		MemberBean memberDB = memberService.userCheck(id); 
+		System.out.println("/board_del_process.do: memberDB.pwd" + memberDB.getPwd());
+
+		int result=0;
+		
+		if (!memberDB.getPwd().equals(user_pwd)) {
+			result = 1;
+			model.addAttribute("result", result);
+
+			return "board/deleteResult";
+
+		} else {
+			System.out.println("delete: board_num " + board_num);
+			boardService.deleteProcess(board_num);		
+		}
+		
+		return "redirect:/board_list.do?page=" + page;
+	}
+	
+	
 }

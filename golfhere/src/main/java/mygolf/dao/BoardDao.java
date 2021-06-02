@@ -49,5 +49,21 @@ public class BoardDao {
 		System.out.println("Dao 수정: " + board.getBoard_num());
 		sqlSession.update("board_update", board);
 	}
+	
+	// 답변글 레벨 증가 
+	public void refEdit(BoardBean board) throws Exception {
+		sqlSession.update("board_ref_edit", board);		
+	}
+	
+	
+	/* 답변글 저장  */
+	public void boardReplyInsert(BoardBean board) throws Exception {
+		sqlSession.insert("board_reply_insert", board);		
+	}
+	
+	/* 게시물 삭제 */
+	public void deleteProcess(int board_num) throws Exception {
+		sqlSession.delete("board_delete", board_num);
+	}
 }
  
