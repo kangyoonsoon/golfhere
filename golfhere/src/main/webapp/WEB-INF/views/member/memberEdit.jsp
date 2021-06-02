@@ -51,9 +51,7 @@ function openDaumPostcode() {
 							<td colspan="2" class="col-md-5">
 							<input type="hidden" name="id" value="${id}"/>
 								${id}</td>
-							<td class="col-md-3 align-middle"><input type="button"
-								value="아이디 중복체크" class="input_button btn btn-outline-secondary" 
-								onclick="id_check()"/></td>
+							<td class="col-md-3 align-middle"></td>
 							<td class="col-md-2"></td>
 						</tr>
 						<tr class="d-flex">
@@ -252,6 +250,7 @@ function openDaumPostcode() {
 		<div class="col"></div>
 	</div>
 
-</section>						
+</section>
+<%@ include file="../layout/footer.jsp"%>						
 </body>
 </html>

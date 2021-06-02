@@ -68,7 +68,7 @@ public class BoardBean {
 		return board_date;
 	}
 	public void setBoard_date(String board_date) {
-		this.board_date = board_date;
+		this.board_date = board_date.substring(0, 16);
 	}
 	public int getBoard_evaluation() {
 		return board_evaluation;

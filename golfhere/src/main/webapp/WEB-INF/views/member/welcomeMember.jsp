@@ -61,5 +61,6 @@
 		<div class="col"></div>
 	</div>
 </section>
+<%@ include file="../layout/footer.jsp"%>
 </body>
 </html>

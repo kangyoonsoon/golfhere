@@ -141,6 +141,7 @@
         	}
         });
         </script>
-</section>						
+</section>
+<%@ include file="../layout/footer.jsp"%>						
 </body>
 </html>

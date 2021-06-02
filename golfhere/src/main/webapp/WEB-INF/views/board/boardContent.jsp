@@ -102,12 +102,12 @@
 									  onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=delete'"
 									  >삭제</button>
 									</div>
-							     </c:if>
-
 									<div class="col-12 my-3">										
 										<input type="reset" value="해당 게시물에 답변하기" class="btn btn-outline-primary btn w-100"
 										 onclick="location='board_content.do?board_num=${board.board_num}&page=${page}&id=${board.id}&icon=${board.icon}&course=${board.board_coursename}&state=reply'" />
 									</div>
+							     </c:if>
+
 									<div class="col-12 my-3">										
 										<input type="reset" value="목록으로 돌아가기" class="btn btn-primary btn w-100"
 										 onclick="location='board_list.do?page=${page}'" />
@@ -123,5 +123,6 @@
 	</div>
 
 </section>
+<%@ include file="../layout/footer.jsp"%>
 </body>
 </html>	

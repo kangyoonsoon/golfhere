@@ -33,6 +33,15 @@ public class MemberAction {
 		return "member/regi_test";
 	}
 	
+	/* 메인 화면 뷰 */
+	@RequestMapping("/main.do")
+	public String main(HttpSession session,
+					   Model model) throws Exception {
+		String id = (String) session.getAttribute("id");
+		model.addAttribute("id", id);
+		return "layout/main";
+	}
+	
 	/* 회원 가입 저장 테스트*/
 	@RequestMapping(value = "regi_test_ok.do", method = RequestMethod.POST)
 	public String regi_test_ok(MemberBean member, Model model) throws Exception {
@@ -106,7 +115,7 @@ public class MemberAction {
 				
 				model.addAttribute("name", name);
 				model.addAttribute("icon", icon);
-				
+				model.addAttribute("id", id);
 				return "member/welcomeMember";
 				
 			} else { // 비번이 다를때

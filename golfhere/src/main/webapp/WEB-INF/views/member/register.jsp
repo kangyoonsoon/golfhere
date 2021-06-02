@@ -228,6 +228,7 @@ function openDaumPostcode() {
 		<div class="col"></div>
 	</div>
 
-</section>						
+</section>
+<%@ include file="../layout/footer.jsp"%>						
 </body>
 </html>
