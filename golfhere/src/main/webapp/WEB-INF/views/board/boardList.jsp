@@ -24,7 +24,11 @@
 			<div class="col-8">
 				<!-- 게시판 -->
 				<h2 class="text-center my-5">골프장 이용 후기 게시판</h2>
+				<div class="row justify-content-between">				
+				<button type="button" class="btn btn-primary text-left h-50 my-2"
+				onclick="location='board_write.do'">글쓰기</button>
 				<div class="text-right py-3">글 개수 : ${listCount}</div>
+				</div>
 				<div class="d-flex justify-content-center">
 					<table class=" table">
 						<thead>
@@ -80,7 +84,7 @@
 
 				</div>
 					<!-- 페이지 처리 -->
-					<nav aria-label="Page navigation example" class="my-5">
+					<nav aria-label="Page navigation example" class="mt-5">
 						<ul class="pagination justify-content-center">
 						    <c:if test="${page <=1 }">
 								<li class="page-item page-link">이전</li>
@@ -108,7 +112,10 @@
 
 						</ul>
 					</nav>
-
+					<div class="row justify-content-center">					
+						<button type="button" class="btn btn-primary text-center mb-3 px-5"
+						onclick="location='board_write.do'">후기 게시판 글쓰기</button>
+					</div>
 			</div>
 			<div class="col"></div>
 		</div>
