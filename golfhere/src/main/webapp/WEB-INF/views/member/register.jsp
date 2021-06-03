@@ -9,6 +9,7 @@
 <!-- bootstrap version 4.6 -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/footer.css">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <script src="<%=request.getContextPath()%>/js/member2.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

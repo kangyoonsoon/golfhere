@@ -8,6 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- bootstrap version 4.6 -->	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/footer.css">
 <script src="<%=request.getContextPath() %>/js/bootstrap.js"></script>
 <title>main</title>
 <style type="text/css">

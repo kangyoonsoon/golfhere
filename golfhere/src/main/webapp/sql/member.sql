@@ -36,7 +36,7 @@ insert into member (num , id, pwd, name, email,
 					regdate)
 			values (member_num_seq.nextval, 'sd1', '111111', '김하성', 'sd07', 
 					'naver.com', '010', '1234', '1234', '13421',
-					'서울 중구 동호로 222', '남', '1', 'a.jpg', '1',
+					'서울 중구 동호로 222', '남', '1', 'green.png', 1,
 					sysdate
 					);
 insert into member (num , id, pwd, name, email,
@@ -45,7 +45,7 @@ insert into member (num , id, pwd, name, email,
 					regdate)
 			values (member_num_seq.nextval, 'sl55', '111111', '김광현', 'sl55', 
 					'yaho.com', '010', '3333', '3333', '3333',
-					'인천 중구 아무동 111', '남', '1', 'a.jpg', '1',
+					'인천 중구 아무동 111', '남', '1', 'a.jpg', 1,
 					sysdate
 					);
 

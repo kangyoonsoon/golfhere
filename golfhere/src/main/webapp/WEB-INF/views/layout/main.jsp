@@ -67,7 +67,7 @@ font-size: 2rem;
                     <div class="text-center text-white">
                         <!-- Page heading-->
                         <h1 class="mb-5">Golf Here</h1>
-                        <h3 class="mb-5">빠르고 쉬운 골프장 검색 및 예약</h3>
+                        <h3 class="mb-5">골프장 정보 공유 커뮤니티</h3>
                     </div>
                 </div>
             </div>
