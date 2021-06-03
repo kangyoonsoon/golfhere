@@ -16,4 +16,12 @@ public class CourseService {
 	public List<CourseBean> listCourse() throws Exception {
 		return courseDao.listCourse();
 	}
+	
+	
+	public CourseBean getSingleCousrse(int course_num) throws Exception {
+	  
+	  return courseDao.getSingleCourse(course_num); 
+	}
+	 
+	
 }

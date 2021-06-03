@@ -51,12 +51,75 @@ insert into course (course_num, course_name, course_area, course_tel1, course_te
 			values (course_num_seq.nextval, '강릉골프장', 2, '010', '9685', 
 					'9584', 'www.naver.com', 0, 27, 15, 
 					17, 0, 'map');
+---------------------
 		
+alter table course modify (course_map varchar2(200));
+update course set course_map='37.87364492097698, 127.27358282798686';					
+					
+-------------------------------------------------------------------------------------------
 
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '백제cc', 2, '031', '000', 
+					'0000', 'https://www.baekjecc.com/index.asp', 0, 27, 15, 
+					18, 0, '36.34865292132381, 126.78913117906708');
 
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '양평TPC', 1, '031', '772', 
+					'8925', 'http://www.tpcgolf.co.kr/', 0, 27, 18, 
+					25, 0, '37.4189032629402, 127.65012532141645');
+
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '금강cc', 1, '031', '884', 
+					'0707', 'https://www.kccgolf.co.kr/', 1, 27, 18, 
+					24, 0, '37.243402675686134, 127.60189692697033');
+
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '김포SEASIDE컨트리클럽', 1, '031', '987', 
+					'9992', 'http://www.gimpocc.co.kr/', 1, 18, 22, 
+					27, 0, '37.706248208445814, 126.53389225581569');
+
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '블루원상주골프리조트', 3, '054', '530', 
+					'8899', 'https://sj.blueone.com/', 0, 18, 15, 
+					20, 0, '36.3340580810608, 127.94586466927991');
+
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '오션비치cc', 3, '054', '730', 
+					'9000', 'https://www.oceanbeachcc.com/Course/beach.asp', 0, 27, 18, 
+					21, 0, '36.3340580810608, 127.94586466927991');
+
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '동전주써미트 CC', 3, '063', '430', 
+					'5000', 'http://www.summitcc.co.kr/', 0, 27, 15, 
+					20, 0, '35.84100840158009, 127.32556698276194');
+					
+insert into course (course_num, course_name, course_area, course_tel1, course_tel2,  
+					course_tel3, course_website, course_membership, course_size, course_week_price, 
+					course_weekend_price, course_penalty, course_map)
+			values (course_num_seq.nextval, '아덴힐리조트앤골프클럽', 4, '', '1588', 
+					'7208', 'http://www.ardenhill.co.kr/', 0, 18, 15, 
+					19, 0, '33.34571387148639, 126.364300267896');
+					
+commit;					
 select * from tab;
 select * from seq;
 select * from course;
+
+delete from course where course_num =37;
 
 drop table course;
 drop sequence course_num_seq;

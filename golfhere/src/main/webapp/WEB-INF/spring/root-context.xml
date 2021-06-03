@@ -21,14 +21,20 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@54.180.103.94 :1521:xe" />
-		<property name="username" value="master" />
-		<property name="password" value="1234" />
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="lion" />
+		<property name="password" value="lion123" />
 	</bean>
+<!-- localhost -->
 <!-- value="jdbc:oracle:thin:@localhost:1521:xe" -->
 <!-- name="username" value="lion" -->
 <!-- name="password" value="lion123" -->
-	<!-- 스프링 jdbc 즉 스프링으로 oracle 디비 연결 -->
+<!-- 스프링 jdbc 즉 스프링으로 oracle 디비 연결 -->
+	
+<!-- aws -->	
+<!-- value="jdbc:oracle:thin:@54.180.103.94 :1521:xe" -->
+<!-- value="master" -->
+<!-- value="1234" -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
+
 import mygolf.model.CourseBean;
 
 @Repository
@@ -18,4 +20,9 @@ private SqlSession sqlSession;
 		List<CourseBean> list = sqlSession.selectList("course_list");
 		return list;
 	}
+	
+	
+	public CourseBean getSingleCourse(int course_num) throws Exception { return
+		(CourseBean) sqlSession.selectOne("get_course", course_num); }
+	 
 }

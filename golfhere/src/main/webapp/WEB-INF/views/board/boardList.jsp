@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="<%=request.getContextPath()%>/js/popup.js"></script>
 <!-- bootstrap version 4.6 -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css">
 <title>게시판 목록</title>
@@ -72,7 +73,13 @@
 													${board.board_title}
 									</a>
 								</td>
-								<td class="text-center">${board.board_coursename}</td>
+								<!-- 골프장 이름 -->
+								<td class="text-center">
+									<a style="cursor: pointer; color:#007bff" onclick="popupWindow('<%=request.getContextPath()%>/course',${board.course_num})">
+										${board.board_coursename}
+									</a>
+									<%-- ${board.board_coursename} --%>
+								</td>
 								<td class="text-center">${board.board_evaluation}</td>
 								<td class="text-center">${board.board_readcount}</td>
 								<td class="text-left">

@@ -4,6 +4,11 @@
 
 <mapper namespace="coursens">
 
+  	<!-- 골프장 1개 정보가져오기 -->
+  	<select id="get_course" parameterType="int" resultType="course">  		 
+    	select * from course where course_num = #{course_num}
+    </select>
+
     <!-- 게시판 글 저장 -->
     <select id="course_list" resultType="course">
 	     		 

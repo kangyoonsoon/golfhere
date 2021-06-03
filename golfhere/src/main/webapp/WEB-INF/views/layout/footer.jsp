@@ -6,7 +6,7 @@
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
     <a href="main.do"><img id="logo" src="<%=request.getContextPath() %>/images/pinterest_board_photo.jpg" alt="logo" class="img-thumbnail"></a>
-  	강윤순 - 2021년 6월 프로젝트 테스트 -
+  	강윤순 - 2021년 6월 중앙정보처리학원 자바 웹 개발 과정 프로젝트 테스트 -
   </div>
   <!-- Copyright -->
 
